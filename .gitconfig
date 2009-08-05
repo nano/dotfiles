@@ -1,0 +1,10 @@
+[user]
+	name = Thomas Cyron
+	email = thomas@thcyron.de
+[color]
+	status = auto
+	diff = auto
+	branch = auto
+[alias]
+	ci = commit
+	st = status
