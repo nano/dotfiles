@@ -171,6 +171,9 @@ lsar() {
   *.tar.gz|*.tgz)
     tar -ztf "$1"
     ;;
+  *.tar.bz2|*.tbz)
+    tar -jtf "$1"
+    ;;
   *.tar)
     tar -tf "$1"
     ;;
