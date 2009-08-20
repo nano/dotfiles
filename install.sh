@@ -3,7 +3,7 @@
 if [ $# -gt 0 ]; then
   dotfiles=$@
 else
-  dotfiles=$(ls -A | grep -v "\.git" | grep -v install.sh)
+  dotfiles=$(ls -A | grep -v "\.git$" | grep -v install.sh)
 fi
 
 for i in $dotfiles; do
