@@ -7,4 +7,5 @@
 	branch = auto
 [alias]
 	ci = commit
+	co = checkout
 	st = status
