@@ -8,7 +8,7 @@ fi
 
 for i in $dotfiles; do
   echo $i
-  if [ -f "$HOME/$i" ]; then
+  if [ -e "$HOME/$i" -o -L "$HOME/$i" ]; then
     mv "$HOME/$i" "$HOME/$i.bak"
   fi
   ln -s "$(pwd)/$i" "$HOME/$i"
