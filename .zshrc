@@ -38,10 +38,19 @@ export HISTFILE="$HOME/.zsh_history"
 export SAVEHIST=5000
 
 #
+# Functions
+#
+fpath=(~/.zsh/functions $fpath)
+autoload -U ~/.zsh/functions/*(:t)
+
+#
 # Completion
 #
 autoload -U compinit
-compinit -C
+compinit
+
+# matches case insensitive for lowercase
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 #
 # Complete SSH hosts
@@ -107,128 +116,5 @@ Darwin)
   fi
   ;;
 esac
-
-#
-# Create the given directory and cd into it immediately.
-#
-mkcd() {
-  mkdir $1
-  cd $1
-}
-
-#
-# Add SSH keys to ssh-agent.
-#
-addsshkeys() {
-  ssh-add -L &>/dev/null
-
-  if [ $? -ne 2 ]; then
-    local need="$(cat $HOME/.ssh/id_rsa.pub | cut -d ' ' -f 1-2)"
-    local have="$(ssh-add -L | cut -d ' ' -f 1-2)"
-
-    if ! echo "$have" | grep -q "$need"; then
-      ssh-add
-    fi
-  fi
-}
-
-#
-# ssh-copy-id
-#
-if ! which ssh-copy-id &>/dev/null; then
-  ssh-copy-id() {
-    cat "$HOME/.ssh/id_rsa.pub" | ssh $@ "cat >> .ssh/authorized_keys"
-  }
-fi
-
-#
-# View a RFC paper.
-#
-rfc() {
-  if [ $# -ne 1 ]; then
-    echo "Usage: $0 <rfc>"
-    return 1
-  fi
-
-  if ! which lynx &>/dev/null; then
-    echo "lynx not found"
-    return 2
-  fi
-
-  lynx -dump "http://www.ietf.org/rfc/rfc$1.txt" | $PAGER
-}
-
-#
-# Show the content of an archive.
-#
-lsar() {
-  if [ $# -ne 1 -o ! -f "$1" ]; then
-    echo "Usage: $0 <file>"
-    return 1
-  fi
-
-  case "$1" in
-  *.tar.gz|*.tgz)
-    tar -ztf "$1"
-    ;;
-  *.tar.bz2|*.tbz)
-    tar -jtf "$1"
-    ;;
-  *.tar)
-    tar -tf "$1"
-    ;;
-  *.zip)
-    unzip -l "$1"
-    ;;
-  *)
-    echo "Unrecognized file type: $1"
-    return 2
-    ;;
-  esac
-}
-
-#
-# Extract an archive.
-#
-extr() {
-  case "$1" in
-  *.rar)
-    unrar x $1
-    ;;
-  *.zip)
-    unzip $1
-    ;;
-  *.tar)
-    tar xf $1
-    ;;
-  *.tar.gz|*.tgz)
-    tar xzf $1
-    ;;
-  *.tar.bz2|*.tbz)
-    tar xjf $1
-    ;;
-  *.cpio)
-    cpio -id < $1
-    ;;
-  *)
-    echo "Unrecognized file type: $1"
-    return 1
-    ;;
-  esac
-}
-
-#
-# Reload zsh configuration.
-#
-update-zsh() {
-  autoload -U zrecompile
-
-  test -f $HOME/.zshrc && zrecompile -p $HOME/.zshrc
-  test -f $HOME/.zcompdump && zrecompile -p $HOME/.zcompdump
-  test -f $HOME/.zshrc.zwc.old && rm -f $HOME/.zshrc.zwc.old
-  test -f $HOME/.zcompdump.zwc.old && rm -f $HOME/.zcompdump.zwc.old
-
-  source $HOME/.zshrc
-}
 
 test -e "$HOME/.zshrc.local" && source "$HOME/.zshrc.local"

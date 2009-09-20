@@ -1,0 +1,23 @@
+if [ $# -ne 1 -o ! -f "$1" ]; then
+  echo "Usage: $0 <file>"
+  return 1
+fi
+
+case "$1" in
+*.tar.gz|*.tgz)
+  tar -ztf "$1"
+  ;;
+*.tar.bz2|*.tbz)
+  tar -jtf "$1"
+  ;;
+*.tar)
+  tar -tf "$1"
+  ;;
+*.zip)
+  unzip -l "$1"
+  ;;
+*)
+  echo "Unrecognized file type: $1"
+  return 2
+  ;;
+esac

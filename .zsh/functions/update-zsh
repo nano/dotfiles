@@ -1,0 +1,8 @@
+autoload -U zrecompile
+
+test -f $HOME/.zshrc && zrecompile -p $HOME/.zshrc
+test -f $HOME/.zcompdump && zrecompile -p $HOME/.zcompdump
+test -f $HOME/.zshrc.zwc.old && rm -f $HOME/.zshrc.zwc.old
+test -f $HOME/.zcompdump.zwc.old && rm -f $HOME/.zcompdump.zwc.old
+
+source $HOME/.zshrc
