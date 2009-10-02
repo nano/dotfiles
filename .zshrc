@@ -9,6 +9,7 @@ alias l="ls -lA"
 alias s="ssh -l root"
 alias n="nmap -sP"
 alias sc="./script/console"
+alias rmkh="ssh-keygen -R"
 alias ..="cd .."
 alias ...="cd ../.."
 
