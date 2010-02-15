@@ -123,4 +123,90 @@ Darwin)
   ;;
 esac
 
+#
+# extr: Extract an archive
+#
+extr() {
+  if [ $# -ne 1 -o ! -f "$1" ]; then
+    echo "Usage: $0 file"
+    return 1
+  fi
+
+  case "$1" in
+  *.rar)
+    unrar x "$1"
+    ;;
+  *.zip)
+    unzip "$1"
+    ;;
+  *.tar)
+    tar xf "$1"
+    ;;
+  *.tar.gz|*.tgz)
+    tar xzf "$1"
+    ;;
+  *.tar.bz2|*.tbz)
+    tar xjf "$1"
+    ;;
+  *.cpio)
+    cpio -id < "$1"
+    ;;
+  *)
+    echo "Unrecognized file type: $1"
+    return 1
+    ;;
+  esac
+}
+
+#
+# lsar: List files inside an archive
+#
+lsar() {
+  if [ $# -ne 1 -o ! -f "$1" ]; then
+    echo "Usage: $0 file"
+    return 1
+  fi
+
+  case "$1" in
+  *.tar.gz|*.tgz)
+    tar -ztf "$1"
+    ;;
+  *.tar.bz2|*.tbz)
+    tar -jtf "$1"
+    ;;
+  *.tar)
+    tar -tf "$1"
+    ;;
+  *.zip)
+    unzip -l "$1"
+    ;;
+  *)
+    echo "Unrecognized file type: $1"
+    return 1
+    ;;
+  esac
+}
+
+#
+# mkcd: Create new directory and cd into it directly
+#
+mkcd() {
+  mkdir $1
+  cd $1
+}
+
+#
+# update-zsh: Reload zsh config
+#
+update-zsh() {
+  autoload -U zrecompile
+
+  test -f $HOME/.zshrc && zrecompile -p $HOME/.zshrc
+  test -f $HOME/.zcompdump && zrecompile -p $HOME/.zcompdump
+  test -f $HOME/.zshrc.zwc.old && rm -f $HOME/.zshrc.zwc.old
+  test -f $HOME/.zcompdump.zwc.old && rm -f $HOME/.zcompdump.zwc.old
+
+  source $HOME/.zshrc
+}
+
 test -e "$HOME/.zshrc.local" && source "$HOME/.zshrc.local"
