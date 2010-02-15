@@ -114,6 +114,11 @@ Darwin)
     export PATH="/usr/local/mysql/bin:$PATH"
     export MANPATH="/usr/local/mysql/man:$MANPATH"
   fi
+
+  if [ -d "/Developer/usr" ]; then
+    export PATH="/Developer/usr/bin:/Developer/usr/sbin:$PATH"
+    export MANPATH="/Developer/usr/share/man:$MANPATH"
+  fi
   ;;
 esac
 
