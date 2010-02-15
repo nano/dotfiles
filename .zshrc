@@ -39,12 +39,6 @@ export HISTFILE="$HOME/.zsh_history"
 export SAVEHIST=5000
 
 #
-# Functions
-#
-fpath=(~/.zsh/functions $fpath)
-autoload -U ~/.zsh/functions/*(:t)
-
-#
 # Completion
 #
 autoload -U compinit
