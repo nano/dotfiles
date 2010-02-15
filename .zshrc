@@ -103,7 +103,7 @@ Darwin)
   test -x "/opt/local/bin/grep" && alias grep="grep --color=auto --exclude=.svn"
   test -x "/opt/local/bin/gseq" && alias seq="gseq"
   export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-  export MANPATH="/opt/local/share/man:$MANPATH"
+  export MANPATH="/opt/local/share/man:/usr/local/man:$MANPATH"
 
   if [ -d "/usr/texbin" ]; then
     export PATH="/usr/texbin:$PATH"
