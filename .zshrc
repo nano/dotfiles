@@ -18,7 +18,7 @@ alias ...="cd ../.."
 export VISUAL="vim"
 export EDITOR="vim"
 export PAGER="less"
-export PS1=" %m:%c %B%(!.#.$)%b "
+export PS1="%m:%c %B%(!.#.$)%b "
 export PS2="%B>%b "
 export PATH="$PATH:$HOME/.bin"
 
