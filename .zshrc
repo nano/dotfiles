@@ -12,8 +12,8 @@ alias ..="cd .."
 alias ...="cd ../.."
 
 gnu_userland_aliases() {
-  grep --version | grep -q GNU && alias grep="grep --color=auto"
-  ls --version | grep -q GNU && alias ls="ls --color=auto"
+  grep --version &>/dev/null | grep -q GNU && alias grep="grep --color=auto"
+  ls --version &>/dev/null | grep -q GNU && alias ls="ls --color=auto"
 }
 
 #
@@ -24,8 +24,6 @@ export EDITOR="vim"
 export PAGER="less"
 export PS1="%m:%c %B%(!.#.$)%b "
 export PS2="%B>%b "
-export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
-export MANPATH="/usr/local/man:/usr/local/share/man:$MANPATH"
 
 #
 # Options
@@ -87,10 +85,10 @@ zsh_load_darwin() {
     export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
     export MANPATH="/opt/local/man:/opt/local/share/man:$MANPATH"
   }
-  test -d /Developer/usr && {
-    export PATH="/Developer/usr/bin:/Developer/usr/sbin:$PATH"
-    export MANPATH="/Developer/usr/share/man:$MANPATH"
-  }
+
+  export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+  test -d /usr/local/man && export MANPATH="/usr/local/man:$MANPATH"
+
   gnu_userland_aliases
 }
 
