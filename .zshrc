@@ -74,6 +74,7 @@ bindkey "\e[F"  end-of-line
 #
 zsh_load_openbsd() {
   test -x /usr/local/bin/gls && alias ls="gls --color=auto"
+  export PATH=$PATH:/usr/local/sbin
 }
 
 zsh_load_freebsd() {
