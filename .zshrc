@@ -74,6 +74,11 @@ bindkey "\eOF"  end-of-line
 #
 # OS-specific settings
 #
+zsh_load_linux() {
+  gnu_userland_aliases
+  export PATH="$PATH:/usr/sbin:/usr/local/sbin"
+}
+
 zsh_load_openbsd() {
   test -x /usr/local/bin/gls && alias ls="gls --color=auto"
   export PATH=$PATH:/usr/local/sbin
