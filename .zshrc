@@ -24,6 +24,7 @@ export EDITOR="vim"
 export PAGER="less"
 export PS1="%m:%c %B%(!.#.$)%b "
 export PS2="%B>%b "
+export PATH="$PATH:/sbin:/usr/sbin:/usr/local/sbin"
 
 #
 # Options
@@ -76,12 +77,10 @@ bindkey "\eOF"  end-of-line
 #
 zsh_load_linux() {
   gnu_userland_aliases
-  export PATH="$PATH:/usr/sbin:/usr/local/sbin"
 }
 
 zsh_load_openbsd() {
   test -x /usr/local/bin/gls && alias ls="gls --color=auto"
-  export PATH=$PATH:/usr/local/sbin
 }
 
 zsh_load_freebsd() {
@@ -94,7 +93,6 @@ zsh_load_darwin() {
     export MANPATH="/opt/local/man:/opt/local/share/man:$MANPATH"
   }
 
-  export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
   test -d /usr/local/man && export MANPATH="/usr/local/man:$MANPATH"
 
   gnu_userland_aliases
