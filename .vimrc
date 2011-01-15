@@ -31,6 +31,8 @@ if has("autocmd")
   au FileType sh setlocal sw=2 sts=2 et
   au FileType javascript setlocal sw=2 sts=2 et
 
+  au BufRead,BufNewFile *.mkd,*.md,*.markdown setfiletype mkd
+
   " Remember last cursor position
   autocmd BufReadPost *
     \ if line("'\"") > 1 && line("'\"") <= line("$") |
