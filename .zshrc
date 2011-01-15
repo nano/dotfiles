@@ -100,6 +100,7 @@ zsh_load_darwin() {
 
 os=$(uname | tr [:upper:] [:lower:])
 type zsh_load_$os &>/dev/null && zsh_load_$os
+unset zsh_load_$os
 unset os
 
 test -e ~/.zshrc.local && source ~/.zshrc.local
