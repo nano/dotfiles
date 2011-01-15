@@ -103,4 +103,13 @@ type zsh_load_$os &>/dev/null && zsh_load_$os
 unset zsh_load_$os
 unset os
 
+#
+# ssh-copy-id
+#
+if ! which ssh-copy-id &> /dev/null; then
+  ssh-copy-id() {
+    cat ~/.ssh/id_rsa.pub | ssh $@ "mkdir -p .ssh &>/dev/null ; cat >> .ssh/authorized_keys"
+  }
+fi
+
 test -e ~/.zshrc.local && source ~/.zshrc.local
