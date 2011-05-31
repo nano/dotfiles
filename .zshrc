@@ -11,11 +11,6 @@ alias rmkh="ssh-keygen -R"
 alias ..="cd .."
 alias ...="cd ../.."
 
-gnu_userland_aliases() {
-  grep --version &>/dev/null | grep -q GNU && alias grep="grep --color=auto"
-  ls --version &>/dev/null | grep -q GNU && alias ls="ls --color=auto"
-}
-
 #
 # Exports
 #
@@ -52,8 +47,8 @@ compinit
 #
 # Complete SSH hosts
 #
-test -f ~/.ssh/config && {
-  hosts=($(egrep "^Host.*" ~/.ssh/config | sed "s/^Host[ ]*\(.*\)$/\1/"))
+test -f $HOME/.ssh/config && {
+  hosts=($(egrep "^Host.*" $HOME/.ssh/config | sed "s/^Host[ ]*\(.*\)$/\1/"))
   zstyle "*" hosts $hosts
   unset hosts
 }
@@ -73,34 +68,43 @@ bindkey "\eOH"  beginning-of-line
 bindkey "\eOF"  end-of-line
 
 #
-# OS-specific settings
+# Linux
 #
-zsh_load_linux() {
-  gnu_userland_aliases
+zsh_linux() {
+  alias ls="ls --color=auto"
+  alias grep="grep --color=auto"
 }
 
-zsh_load_openbsd() {
+#
+# OpenBSD
+#
+zsh_openbsd() {
   test -x /usr/local/bin/gls && alias ls="gls --color=auto"
+  test -x /usr/local/bin/ggrep && alias grep="ggrep --color=auto"
 }
 
-zsh_load_freebsd() {
+#
+# FreeBSD
+#
+zsh_freebsd() {
   alias ls="ls -G"
+  alias grep="grep --color=auto"
 }
 
-zsh_load_darwin() {
-  test -d /opt/local && {
-    export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-    export MANPATH="/opt/local/man:/opt/local/share/man:$MANPATH"
-  }
-
-  test -d /usr/local/man && export MANPATH="/usr/local/man:$MANPATH"
-
-  gnu_userland_aliases
+#
+# Mac OS X
+#
+zsh_darwin() {
+  test -x $HOME/.homebrew/bin/ls && alias ls="ls --color=auto"
+  alias grep="grep --color=auto"
 }
 
+#
+# Load OS-specific options
+#
 os=$(uname | tr [:upper:] [:lower:])
-type zsh_load_$os &>/dev/null && zsh_load_$os
-unset zsh_load_$os
+type zsh_$os &>/dev/null && zsh_$os
+unset zsh_$os
 unset os
 
 #
@@ -108,8 +112,8 @@ unset os
 #
 if ! which ssh-copy-id &> /dev/null; then
   ssh-copy-id() {
-    cat ~/.ssh/id_rsa.pub | ssh $@ "mkdir -p .ssh &>/dev/null ; cat >> .ssh/authorized_keys"
+    cat $HOME/.ssh/id_rsa.pub | ssh $@ "mkdir -p .ssh &>/dev/null ; cat >> .ssh/authorized_keys"
   }
 fi
 
-test -e ~/.zshrc.local && source ~/.zshrc.local
+test -e $HOME/.zshrc.local && source $HOME/.zshrc.local
