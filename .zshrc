@@ -10,6 +10,7 @@ alias n="nmap -sP"
 alias rmkh="ssh-keygen -R"
 alias ..="cd .."
 alias ...="cd ../.."
+alias be="bundle exec"
 
 #
 # Exports
