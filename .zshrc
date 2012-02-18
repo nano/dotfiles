@@ -18,9 +18,30 @@ alias be="bundle exec"
 export VISUAL="vim"
 export EDITOR="vim"
 export PAGER="less"
-export PS1="%m:%c %B%(!.#.$)%b "
-export PS2="%B>%b "
 export PATH="$PATH:/sbin:/usr/sbin:/usr/local/sbin"
+
+#
+# Prompt
+#
+export PS1='%m:%c${vcs_info_msg_0_} %B%(!.#.$)%b '
+export PS2='%B>%b '
+
+precmd() {
+  vcs_info
+}
+
+#
+# vcs_info
+#
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' formats ' (%b)'
+
+#
+# Ruby
+#
+export GEM_PATH="$HOME/.gems"
+export GEM_HOME="$GEM_PATH"
+export PATH="$HOME/.gems/bin:$PATH"
 
 #
 # Options
@@ -31,6 +52,7 @@ setopt nosharehistory
 setopt nonomatch
 setopt localoptions
 setopt localtraps
+setopt prompt_subst
 
 #
 # History
@@ -116,5 +138,34 @@ if ! which ssh-copy-id &> /dev/null; then
     cat $HOME/.ssh/id_rsa.pub | ssh $@ "mkdir -p .ssh &>/dev/null ; cat >> .ssh/authorized_keys"
   }
 fi
+
+#
+# gemset
+#
+gemset() {
+  if [ "$1" ]; then
+    rm -f $HOME/.gems
+    mkdir -p $HOME/.gemsets/$1
+    ln -s $HOME/.gemsets/$1 $HOME/.gems
+  else
+    echo "Usage: gemset name" >&2
+    return 1
+  fi
+}
+
+#
+# rubies
+#
+rubies() {
+  if [ "$1" ]; then
+    for i in ruby irb rake gem; do
+      rm -f $HOME/.bin/$i
+      ln -s $HOME/.rubies/$1/bin/$i $HOME/.bin/$i
+    done
+  else
+    echo "Usage: rubies version" >&2
+    return 1
+  fi
+}
 
 test -e $HOME/.zshrc.local && source $HOME/.zshrc.local
