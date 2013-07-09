@@ -37,13 +37,6 @@ autoload -Uz vcs_info
 zstyle ':vcs_info:*' formats ' (%b)'
 
 #
-# Ruby
-#
-export GEM_PATH="$HOME/.gems"
-export GEM_HOME="$GEM_PATH"
-export PATH="$HOME/.gems/bin:$PATH"
-
-#
 # Options
 #
 setopt nobeep
