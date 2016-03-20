@@ -46,6 +46,7 @@ setopt nonomatch
 setopt localoptions
 setopt localtraps
 setopt prompt_subst
+setopt histignorespace
 
 #
 # History
@@ -122,43 +123,5 @@ os=$(uname | tr [:upper:] [:lower:])
 type zsh_$os &>/dev/null && zsh_$os
 unset zsh_$os
 unset os
-
-#
-# ssh-copy-id
-#
-if ! which ssh-copy-id &> /dev/null; then
-  ssh-copy-id() {
-    cat $HOME/.ssh/id_rsa.pub | ssh $@ "mkdir -p .ssh &>/dev/null ; cat >> .ssh/authorized_keys"
-  }
-fi
-
-#
-# gemset
-#
-gemset() {
-  if [ "$1" ]; then
-    rm -f $HOME/.gems
-    mkdir -p $HOME/.gemsets/$1
-    ln -s $HOME/.gemsets/$1 $HOME/.gems
-  else
-    echo "Usage: gemset name" >&2
-    return 1
-  fi
-}
-
-#
-# rubies
-#
-rubies() {
-  if [ "$1" ]; then
-    for i in ruby irb rake gem; do
-      rm -f $HOME/.bin/$i
-      ln -s $HOME/.rubies/$1/bin/$i $HOME/.bin/$i
-    done
-  else
-    echo "Usage: rubies version" >&2
-    return 1
-  fi
-}
 
 test -e $HOME/.zshrc.local && source $HOME/.zshrc.local
