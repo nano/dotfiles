@@ -19,6 +19,8 @@ if has("mouse")
   set mouse=a
 endif
 
+execute pathogen#infect()
+
 syntax on
 colorscheme desert
 filetype plugin indent on
@@ -30,8 +32,11 @@ if has("autocmd")
   au FileType php setlocal sw=4 sts=4 et
   au FileType sh setlocal sw=2 sts=2 et
   au FileType javascript setlocal sw=2 sts=2 et
+  au FileType go setlocal sw=8 ts=8 noet
+  au FileType c,h setlocal ts=8 sw=8 sts=8 noet
 
   au BufRead,BufNewFile *.mkd,*.md,*.markdown setfiletype mkd
+  au BufRead,BufNewFile *.thrift set ft=thrift
 
   " Remember last cursor position
   autocmd BufReadPost *
