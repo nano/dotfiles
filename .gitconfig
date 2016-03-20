@@ -6,10 +6,12 @@
 	diff = auto
 	branch = auto
 [alias]
-	ci = commit
+	ci = commit -v
 	co = checkout
 	st = status
 	dc = diff --cached
 	d = diff
 	aa = add --all
 	au = add -u
+[commit]
+	status = true
