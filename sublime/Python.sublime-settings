@@ -1,4 +1,6 @@
 {
   "tab_size": 4,
-  "translate_tabs_to_spaces": true
+  "translate_tabs_to_spaces": true,
+  "file_exclude_patterns": ["*.pyc"],
+  "folder_exclude_patterns": ["__pycache__"]
 }
