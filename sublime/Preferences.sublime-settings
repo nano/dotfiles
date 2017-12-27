@@ -1,10 +1,16 @@
 {
-  "color_scheme": "Packages/User/Tomorrow.tmTheme",
-  "font_face": "Menlo",
-  "font_size": 12,
-  "ignored_packages": [
-    "Vintage"
-  ],
-  "tab_size": 8,
-  "word_wrap": false
+    "color_scheme": "Packages/User/Tomorrow Night.tmTheme",
+    "folder_exclude_patterns": [
+        ".git",
+        "__pycache__"
+    ],
+    "font_face": "SF Mono",
+    "font_size": 13,
+    "highlight_line": true,
+    "ignored_packages": [
+        "Vintage"
+    ],
+    "tab_size": 8,
+    "theme": "Adaptive.sublime-theme",
+    "word_wrap": false
 }
