@@ -20,6 +20,7 @@ set splitbelow
 set t_Co=256
 set tags=./tags;/
 set background=dark
+set noswapfile
 
 let mapleader=","
 
